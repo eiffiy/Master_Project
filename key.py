@@ -45,7 +45,7 @@ def load_data():
     data = np.empty((213,1,256,256),dtype="float32")
     label = np.empty((213,),dtype="uint8")
 
-    path = "/root/MasterProject/Master-Project-Doc/Desktop/jaffe"
+    path = "/root/Master_Project/jaffe"
     imgs = os.listdir(path)
     num = len(imgs)
     for i in range(num):
