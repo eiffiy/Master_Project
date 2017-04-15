@@ -92,15 +92,10 @@ model.add(Flatten())
 model.add(Dense(512))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
-model.add(Dense(num_classes))
+model.add(Dense(6))
 model.add(Activation('softmax'))
 model.add(Dropout(0.25))
 
-
-model.add(Flatten())
-model.add(Dense(128, activation="relu"))
-model.add(Dropout(0.5))
-model.add(Dense(6, activation="softmax"))
 model.compile(loss = 'categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(data, label, batch_size=5, nb_epoch=500, shuffle=True, verbose=1, validation_split=0.15)
 
