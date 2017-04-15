@@ -64,7 +64,6 @@ def load_data():
 data, label = load_data()
 data = data.reshape(213,1,256,256)
 print(data.shape[0], ' samples')
-print(data.shape, ' shape')
 
 
 #label为0~9共10个类别，keras要求格式为binary class matrices,转化一下，直接调用keras提供的这个函数
@@ -79,9 +78,9 @@ model = Sequential()
 
 model.add(Conv2D(32, kernel_size = 4, activation='relu', strides = 1, input_shape=(1,256,256), data_format='channels_first'))
 model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Conv2D(16, kernel_size = 3, activation="relu"))
+model.add(Conv2D(64, kernel_size = 3, activation="relu"))
 model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Conv2D(16, kernel_size = 3, activation="relu"))
+model.add(Conv2D(128, kernel_size = 3, activation="relu"))
 model.add(MaxPooling2D(pool_size=(2,2)))
 
 model.add(Dropout(0.25))
@@ -92,6 +91,6 @@ model.add(Dense(128, activation="relu"))
 model.add(Dropout(0.5))
 model.add(Dense(6, activation="softmax"))
 model.compile(loss = 'categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(data, label, batch_size=100, nb_epoch=800, shuffle=True, verbose=1, validation_split=0.2)
+model.fit(data, label, batch_size=5, nb_epoch=500, shuffle=True, verbose=1, validation_split=0.2)
 
 
