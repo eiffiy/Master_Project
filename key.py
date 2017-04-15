@@ -76,14 +76,16 @@ label = np_utils.to_categorical(label, 6)
 #生成一个model
 model = Sequential()
 
-model.add(Conv2D(32, kernel_size = 4, strides = 1, input_shape=(1,256,256), data_format='channels_first'))
+model.add(Conv2D(32, kernel_size = 3, padding='same', input_shape=(1,256,256), data_format='channels_first'))
+model.add(Activation('relu'))
+model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 model.add(Conv2D(64, (3, 3), padding='same'))
 model.add(Activation('relu'))
-model.add(Conv2D(128, (3, 3)))
+model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -94,9 +96,15 @@ model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(6))
 model.add(Activation('softmax'))
-model.add(Dropout(0.25))
 
-model.compile(loss = 'categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+# initiate RMSprop optimizer
+opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+
+# Let's train the model using RMSprop
+model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
+              metrics=['accuracy'])
+
 model.fit(data, label, batch_size=5, nb_epoch=500, shuffle=True, verbose=1, validation_split=0.15)
 
 
