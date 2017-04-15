@@ -21,6 +21,7 @@ from six.moves import range
 import os
 from PIL import Image
 import numpy as np
+import keras
 
 def label_reader(file_string):
     file = file_string
