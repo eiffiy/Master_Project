@@ -46,17 +46,14 @@ def load_data():
     data = np.empty((213,1,256,256),dtype="float32")
     label = np.empty((213,),dtype="uint8")
 
-    path = "/root/Master_Project/jaffe"
+    path = "/home/Master_Project/jaffe"
     imgs = os.listdir(path)
     num = len(imgs)
     for i in range(num):
         img = Image.open(path+"/"+imgs[i],"r")
         arr = np.asarray(img,dtype="float32")
-        print (arr)
-        print ("****************")
         data[i,:,:,:] = arr
         label[i] = int(label_reader(imgs[i]))
-        print (label_reader(imgs[i]))
     return [data,label]
 
 
@@ -106,6 +103,6 @@ model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 
-model.fit(data, label, batch_size=5, nb_epoch=500, shuffle=True, verbose=1, validation_split=0.15)
+model.fit(data, label, batch_size=10, nb_epoch=500, shuffle=True, verbose=1, validation_split=0.5)
 
 
