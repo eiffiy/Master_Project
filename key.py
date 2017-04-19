@@ -103,12 +103,11 @@ model.add(Dropout(0.25))
 model.add(Dense(6))
 model.add(Activation('softmax'))
 
-sgd = optimizers.SGD(lr=0.001, decay=0.01, momentum=0.1, nesterov=True)
+sgd = optimizers.SGD(lr=0.01, decay=0.01, momentum=0.1, nesterov=True)
 
 # Let's train the model using RMSprop
 model.compile(loss='categorical_crossentropy',
               optimizer=sgd,
               metrics=['accuracy'])
 
-model.fit(data, label, batch_size=20, epochs=200,
-    shuffle=True, verbose=1, validation_split=0.3)
+model.fit(data, label, batch_size=5, epochs=200, shuffle=True, verbose=1, validation_split=0.3)
