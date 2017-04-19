@@ -7,6 +7,7 @@ file:data.py
 # 导入各种用到的模块组件
 from __future__ import absolute_import
 from __future__ import print_function
+from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
@@ -47,7 +48,7 @@ def label_reader(file_string):
 
 
 def load_data():
-    data = np.empty((213, 1, 256, 256), dtype="float32")
+    data = np.empty((213, 1, 48, 48), dtype="float32")
     label = np.empty((213,), dtype="uint8")
 
     path = "./jaffe"
@@ -55,6 +56,7 @@ def load_data():
     num = len(imgs)
     for i in range(num):
         img = Image.open(path + "/" + imgs[i], "r")
+        img.thumbnail((48, 48))
         arr = np.asarray(img, dtype="float32")
         data[i, :, :, :] = arr
         label[i] = int(label_reader(imgs[i]))
@@ -63,7 +65,8 @@ def load_data():
 
 # 加载数据
 data, label = load_data()
-data = data.reshape(213, 1, 256, 256)
+test_data, test_label = load_data()
+data = data.reshape(213, 1, 48, 48)
 print(data.shape[0], ' samples')
 
 
@@ -77,27 +80,35 @@ label = np_utils.to_categorical(label, 6)
 # 生成一个model
 model = Sequential()
 
-model.add(Conv2D(32, kernel_size=3, padding='same',
-                 input_shape=(1, 256, 256), data_format='channels_first'))
+model.add(Conv2D(64, kernel_size=3, padding='same',
+                 input_shape=(1, 48, 48), data_format='channels_first'))
 model.add(Activation('relu'))
-
+model.add(Conv2D(64, (3, 3)))
+model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
+model.add(Dropout(0.5))
+
+model.add(Conv2D(128, (3, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.5))
 
 model.add(Flatten())
 model.add(Dense(256))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
+model.add(Dropout(0.25))
+model.add(Dense(512))
+model.add(Activation('relu'))
+model.add(Dropout(0.25))
 model.add(Dense(6))
 model.add(Activation('softmax'))
 
-# initiate RMSprop optimizer
-opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+sgd = optimizers.SGD(lr=0.001, decay=0.01, momentum=0.1, nesterov=True)
 
 # Let's train the model using RMSprop
 model.compile(loss='categorical_crossentropy',
-              optimizer=opt,
+              optimizer=sgd,
               metrics=['accuracy'])
 
-model.fit(data, label, batch_size=10, nb_epoch=500,
-          shuffle=True, verbose=1, validation_split=0.4)
+model.fit(data, label, batch_size=20, epochs=200,
+    shuffle=True, verbose=1, validation_split=0.3)
