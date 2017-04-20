@@ -14,7 +14,7 @@ These two catagories could widely include face and facial expression recognition
 
 The former research direction shows more active than the template one. Before the twenty-first century, neural network and Gabor wavelets are two distinguished holistic methods of expression recognition, there were some researches [10,11] that combine these two methods and other local algorithms for experiments; of course, some researchers just used neural network[12] or connected neural network with Principal Components Analysis (PCA) to carry out analysis and research[13,14]. In addition, Bayesian Network [20], Support Vector Machines [21], and K-nearest neighbor [22] are also taken part in facial expression recognition.
 
-Nevertheless, deep learning algorithms, as an embranchment of neural network, perform as well as researchers' expectation. 
+Nevertheless, deep learning algorithms, as an embranchment of neural network,show more possibility in facial expression recognition research. Although neural network has used in expression recognition for many years, deep learning was not popular all the time. One reason is that the neural network encountered bottlenecks in the last century, slow development caused that researchers did not think neural networks will become the mainstream in the future and this generated neural network progressed sluggishly. At the same time, many outstanding algorithms were provided and some old algorithms were improved by researchers. The second reason is the improvement of research environment, remarkable Graphics Processing Unit (GPU) developed and the computational capability can content deep learning's need. 
 
 
 
