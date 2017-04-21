@@ -24,17 +24,27 @@ Roychowdhury and Emmons[6] pointed out that all face and expression recognition 
 
 These two categories could widely include face and facial expression recognition area, but more specific categories of facial expression recognition  can be concluded in [15] and [16]. There are two primary research directions among facial expression recognition, the feature-based orientation and the template-based orientation [17]. The method that they extract facial expression information is that they are classified. The feature-based research direction extracts features from texture, or makes use of datasets' geometrical information to train models. The template-based  direction utilizes facial or head models in 2-Dims and 3-Dims as templates to obtain facial expression information. Model template-based methods can be found in [18,19], they used 3-Dims model to build a head, and according to its muscles' similarity to every specific expression to classify different expression. And if the model is 2-Dims, the recognition would base on some decision rules which was designed for 2_Dims facial models.
 
-The former research direction shows more active than the template one. Before the twenty-first century, neural network and Gabor wavelets are two distinguished holistic methods of expression recognition, there were some researches [10,11] that combine these two methods and other local algorithms for experiments; of course, some researchers just used neural network[12] or connected neural network with Principal Components Analysis (PCA) to carry out analysis and research[13,14]. In addition, Bayesian Network [20], Support Vector Machines [21], and K-nearest neighbor [22] are also taken part in facial expression recognition and made some achievements.
+The former research direction shows more active than the template one. Before the twenty-first century, neural network and Gabor wavelets are two distinguished holistic methods of expression recognition, there were some researches [10,11] that combine these two methods and other local algorithms for experiments; of course, some researchers just used neural network[12] or connected neural network with Principal Components Analysis (PCA) to carry out analysis and research[13,14]. Bayesian Network [20], Support Vector Machines [21], and K-nearest neighbor [22] are also taken part in facial expression recognition and made some achievements. Generally speaking, a number of effective attempts in facial expression analysis researches can be found in recent 20 years [24-32].
 
 ### Deep Learning and Facial Expression Recognition
 
-Nevertheless, deep learning algorithms, as an embranchment of neural network,show more possibility in facial expression recognition research. Although neural network has used in expression recognition for many years, deep learning was not popular all the time. One reason is that the neural network encountered bottlenecks in the last century, slow development caused that researchers did not think neural networks will become the mainstream in the future and this generated neural network progressed sluggishly. At the same time, many outstanding algorithms were provided and some old algorithms were improved by researchers. The second reason is the improvement of research environment, remarkable Graphics Processing Unit (GPU) developed and the computational capability can content deep learning's requirements.
+Nevertheless, deep learning algorithms, as an embranchment of neural network,show more possibility in facial expression recognition research. 
+
+Although neural network has used in expression recognition for many years, deep learning was not popular all the time. One reason is that the neural network encountered bottlenecks in the last century, slow development caused that researchers did not think neural networks will become the mainstream machine learning method in the future, and this also aggravated the slow development of the neural network. At the same time, many outstanding algorithms were provided and some old algorithms were improved by researchers. The second reason is the improvement of research environment, remarkable Graphics Processing Unit (GPU) developed and the computational capability can content deep learning's requirements.
+
+Deep Belief Networks (DBN) [35] and Convolutional Neural Networks (CNN) are two representative Artificial Neural Network, and these two neural networks use different respective but all obtained good effects in facial expression analysis. 
+
+DBN has a robust ability in unsupervised feature learning, and can combine with Multilayer Perceptron (MLP) to generate a new system which is good at facial expression [33,34]. It is consisted by ordered superimposed Restricted Boltzmann Machine (RBM) [36].
+
+CNN is a feed-forward artificial neural network and can be used in multi-class classification. In 2012, A. Krizhevsky, I. Sutskerver and G. E. Hinton [37] trained a deep convolutional neural network system which tried to classify the 1200000 high resolution picture images in 1000 different classes and gained excellent results compared with other systems in the same period. The classification ability of CNN has been proved and it also can used in facial expression recognition fields. This article would make detailed interpretation of CNN in next chapter, and use CNN as main algorithm to build a facial expression recognition system. 
 
 ### General approach
 
 In this section, some common methods of facial expression recognition which were mentioned before would be introduced in detail.
 
 #### Basic Structure
+
+Facial expression analysis can be separated into two main sections, measurement facial expression procedure and recognition procedure. There are three steps which contain methods of automatic facial expression analysis: face acquisition, facial data extraction and representation, and facial expression recognition [23].
 
 
 
@@ -87,3 +97,33 @@ In this section, some common methods of facial expression recognition which were
 ###### [21] C. Cortes, and V. Vapnik, “Support-vector networks,” Mach. learn., Vol. 20, no. 3, pp. 273 97, Sep. 1995.
 
 ###### [22] T. Cover, and P. Hart, “Nearest neighbor pattern classification,” IEEE Trans. Inform. Theor., Vol. 13, no. 1, pp. 21 7, Jan. 1967.
+
+###### [23] Y. Tian, T. Kanade, J.F.Cohn, "Handbook of Face Recognition, Chapter 19: Facial Expression Recognition," pp147-175, Jan. 2011. 
+
+###### [24] Bartlett, M., Littlewort, G., Frank, M., Lainscsek, C., Fasel, I., Movellan, J.: Automatic recognition of facial actions in spontaneous expressions. J. Multimed. 1(6), 22–35 (2006)
+
+###### [25] Black, M., Yacoob, Y.: Tracking and recognizing rigid and non-rigid facial motions using local parametric models of image motion. In: Proc. of International Conference on Computer Vision, pp. 374–381 (1995)
+
+###### [26] Black, M., Yacoob, Y.: Recognizing facial expressions in image sequences using local parameterized models of image motion. Int. J. Comput. Vis. 25(1), 23–48 (1997)
+
+###### [27] Cohn, J., Zlochower, A., Lien, J., Kanade, T.: Automated face analysis by feature point tracking has high concurrent validity with manual facs coding. Psychophysiology 36, 35–43 (1999)
+
+###### [28] Donato, G., Bartlett, M., Hager, J., Ekman, P., Sejnowski, T.: Classifying facial actions. IEEE Trans. Pattern Anal. Mach. Intell. 21(10), 974–989 (1999)
+
+###### [29] Essa, I., Pentland, A.: Coding, analysis, interpretation, and recognition of facial expressions. IEEE Trans. Pattern Anal. Mach. Intell. 19(7), 757–763 (1997)
+
+###### [30] Fukui, K., Yamaguchi, O.: Facial feature point extraction method based on combination of shape extraction and pattern matching. Syst. Comput. Jpn. 29(6), 49–58 (1998)
+
+###### [31] Gunes, H., Piccardi, M.: Automatic temporal segment detection and affect recognition from face and body display. IEEE Trans. Syst. Man Cybern., Part B, Cybern. 39(1), 64–84 (2009)
+
+###### [32] Rosenblum, M., Yacoob, Y., Davis, L.: Human expression recognition from motion using a radial basis function network architecture. IEEE Trans. Neural Netw. 7(5), 1121–1138 (1996)
+
+###### [33] X. Zhao, X. Shi, S. Zhang, "Facial Expression Recognition via Deep Learning", IETE Technical Review, Vol 32, NO 5, Sep-Oct 2015.
+
+###### [34] Y. Lv, Z. Feng, C. Xu, "Facial Expression Recognition via Deep Learning," IEEE, pp.303-308, 2014.
+
+###### [35] G. E. Hinton, S. Osindero, and Y.-W. Teh, “A fast learning algo- rithm for deep belief nets,” Neural Comput., Vol. 18, no. 7, pp. 1527 54, Jul. 2006.
+
+###### [36] Y. Freund, and D. Haussler, “Unsupervised learning of distribu- tions of binary vectors using two layer networks,” University of California, Santa Cruz, CA Tech. Rep. UCSC-CRL-94-25, 1994.
+
+###### [37] A. Krizhevsky, I. Sutskerver and G. E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks", NIPS, 2012.
