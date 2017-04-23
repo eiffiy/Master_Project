@@ -42,10 +42,6 @@ def label_reader(file_string):
         label = 5
     return label
 
-# 读取文件夹mnist下的42000张图片，图片为灰度图，所以为1通道，
-# 如果是将彩色图作为输入,则将1替换为3，并且data[i,:,:,:] = arr改为data[i,:,:,:] =
-# [arr[:,:,0],arr[:,:,1],arr[:,:,2]]
-
 
 def load_data():
     data = np.empty((213, 1, 48, 48), dtype="float32")
