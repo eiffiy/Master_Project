@@ -48,10 +48,15 @@ with open(args.file, 'rb') as csvfile:
         stacked_image = np.dstack((image,) * 3)
         # print stacked_image.shape
 
-        image_folder = os.path.join(args.output, usage)
+        image_folder = os.path.join(args.output, "All")
         if not os.path.exists(image_folder):
             os.makedirs(image_folder)
-        image_file = os.path.join(image_folder, str(id) + '.jpg')
+
+        # image_folder = os.path.join(args.output, usage)
+        # if not os.path.exists(image_folder):
+        #     os.makedirs(image_folder)
+        image_file = os.path.join(
+            image_folder, str(id) + '.' + emotion + '.jpg')
         scipy.misc.imsave(image_file, stacked_image)
         id += 1
         if id % 100 == 0:

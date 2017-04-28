@@ -1,6 +1,9 @@
 import cv2
 import sys
 
+import PIL
+from PIL import Image
+
 # Get user supplied values
 imagePath = sys.argv[1]
 cascPath = "haarcascade_frontalface_default.xml"
@@ -23,9 +26,18 @@ faces = faceCascade.detectMultiScale(
 
 print("Found {0} faces!".format(len(faces)))
 
+img = Image.open(imagePath)
+
 # Draw a rectangle around the faces
+i = 0
+
 for (x, y, w, h) in faces:
     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    img_crop = img.crop((x, y, x + w, y + h))
+    img_crop.thumbnail((48, 48))
+    img_crop.save(str(i) + '.jpg', "JPEG")
+    i = i + 1
 
 cv2.imshow("Faces found", image)
+print ("##################")
 cv2.waitKey(0)
