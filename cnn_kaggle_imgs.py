@@ -20,6 +20,8 @@ from PIL import Image
 import numpy as np
 import keras
 
+from keras.models import load_model
+
 
 def dataLoader():
     path = "./kaggle_img/All"
@@ -78,4 +80,10 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 model.fit(data, label, batch_size=100, epochs=50,
-          shuffle=True, verbose=1, validation_split=0.3)
+          shuffle=True, verbose=1, validation_split=0.1)
+
+model.save('cnn_kaggle_50.h5')  # creates a HDF5 file 'cnn....h5'
+
+# returns a compiled model
+# identical to the previous one
+# model = load_model("cnn_kaggle_50.h5")
