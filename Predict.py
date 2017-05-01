@@ -58,7 +58,7 @@ def make_prediction(num):
     print("Facial Expression Prediction Start")
     print("**********************************")
     for i in range(num):
-        print(str(i) + ".jpg could be " +
+        print(str(i) + " could be " +
               label2string(int(np.argmax(predict_label[i]))))
     return "finish"
 
