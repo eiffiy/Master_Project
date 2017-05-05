@@ -79,5 +79,24 @@ def make_prediction_Byname(str_name):
     print("**********************************")
     print("Facial Expression Prediction Start")
     print("**********************************")
-    print("This image could be " + slabel2string(int(np.argmax(predict_label))))
+    print("This image could be " + label2string(int(np.argmax(predict_label))))
+    return "finish"
+
+
+def make_prediction_BycroppedImg(img):
+    data = np.empty((1, 1, 48, 48), dtype="float32")
+    predict_label = np.empty((1,), dtype="uint8")
+
+    arr = np.asarray(img, dtype="float32")
+    data[0, :, :, :] = arr
+
+    model = Sequential()
+    model = load_model("cnn_kaggle_50.h5")
+
+    predict_label = model.predict(data, batch_size=1, verbose=1)
+    print("**********************************")
+    print("Facial Expression Prediction Start")
+    print("**********************************")
+    print("This image could be " + label2string(int(np.argmax(predict_label))))
+
     return "finish"
