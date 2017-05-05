@@ -21,82 +21,101 @@ import numpy as np
 import keras
 
 
-def label2string(label):
-    if label is 0:
-        return "ANGRY"
-    if label is 1:
-        return "DISGUST"
-    if label is 2:
-        return "FEAR"
-    if label is 3:
-        return "HAPPY"
-    if label is 4:
-        return "SAD"
-    if label is 5:
-        return "SURPRISE"
-    if label is 6:
-        return "NEUTRAL"
+class PredictClass:
 
+    def __init__(self):
+        # init model
+        self.model = Sequential()
+        self.model = load_model("cnn_kaggle_50.h5")
 
-def make_prediction(num):
-    data = np.empty((num, 1, 48, 48), dtype="float32")
-    predict_label = np.empty((num,), dtype="uint8")
+    # print fixed information
+    def StartPrintResult(self):
+        print("**********************************")
+        print("Facial Expression Prediction Start")
+        print("**********************************")
 
-    for i in range(num):
-        img = Image.open("./" + str(i) + ".jpg", 'r').convert('L')
+    # relationship between label and expressions
+    def label2string(self, label):
+        if label is 0:
+            return "ANGRY"
+        if label is 1:
+            return "DISGUST"
+        if label is 2:
+            return "FEAR"
+        if label is 3:
+            return "HAPPY"
+        if label is 4:
+            return "SAD"
+        if label is 5:
+            return "SURPRISE"
+        if label is 6:
+            return "NEUTRAL"
+
+    # def predictTrainImgs():
+
+    # this method uses for default cropped img in dir ./CroppedImgs/folderName/
+    # *************************************
+    def makePredictionFromFolder(self, num, folderName):
+        # init data and predict_result np array
+        data = np.empty((num, 1, 48, 48), dtype="float32")
+        predict_result = np.empty((num,), dtype="uint8")
+        for i in range(num):
+            # this dir could need to change to a folder which use for cropped
+            # imgs
+            img = Image.open("./CroppedImgs/" + folderName + '/' + str(i) +
+                             ".jpg", 'r').convert('L')
+            img.thumbnail((48, 48))
+
+            arr = np.asarray(img, dtype="float32")
+            data[i, :, :, :] = arr
+
+        predict_result = self.model.predict(data, batch_size=1, verbose=1)
+        # print Prediction information
+        self.StartPrintResult()
+
+        # label array for return
+        predict_label = []
+        for i in range(num):
+            # print every expresion
+            predict_label.append(int(np.argmax(predict_result[i])))
+            print(str(i) + " could be " +
+                  self.label2string(predict_label[i]))
+
+        return ['Prediction is finish', predict_label]
+
+    # analyze the expression from the local imgs
+    def makePredictionByName(self, str_name):
+        data = np.empty((1, 1, 48, 48), dtype="float32")
+        predict_result = np.empty((1,), dtype="uint8")
+        img = Image.open("./" + str_name, 'r').convert('L')
         img.thumbnail((48, 48))
 
         arr = np.asarray(img, dtype="float32")
-        data[i, :, :, :] = arr
+        data[0, :, :, :] = arr
 
-    model = Sequential()
-    model = load_model("cnn_kaggle_50.h5")
+        predict_result = self.model.predict(data, batch_size=1, verbose=1)
+        self.StartPrintResult()
 
-    predict_label = model.predict(data, batch_size=1, verbose=1)
-    print (predict_label)
-    print("**********************************")
-    print("Facial Expression Prediction Start")
-    print("**********************************")
-    for i in range(num):
-        print(str(i) + " could be " +
-              label2string(int(np.argmax(predict_label[i]))))
-    return "finish"
+        predict_label = int(np.argmax(predict_result))
+        print("This image could be " +
+              label2string(predict_label))
 
+        return ['Prediction is finish', predict_label]
 
-def make_prediction_Byname(str_name):
-    data = np.empty((1, 1, 48, 48), dtype="float32")
-    predict_label = np.empty((1,), dtype="uint8")
-    img = Image.open("./" + str_name, 'r').convert('L')
-    img.thumbnail((48, 48))
+    # the input is PIL.Image object
+    def makePredictionByCroppedImg(self, img):
+        # init np array
+        data = np.empty((1, 1, 48, 48), dtype="float32")
+        predict_result = np.empty((1,), dtype="uint8")
 
-    arr = np.asarray(img, dtype="float32")
-    data[0, :, :, :] = arr
+        arr = np.asarray(img, dtype="float32")
+        data[0, :, :, :] = arr
 
-    model = Sequential()
-    model = load_model("cnn_kaggle_50.h5")
+        predict_result = self.model.predict(data, batch_size=1, verbose=1)
+        self.StartPrintResult()
 
-    predict_label = model.predict(data, batch_size=1, verbose=1)
-    print("**********************************")
-    print("Facial Expression Prediction Start")
-    print("**********************************")
-    print("This image could be " + label2string(int(np.argmax(predict_label))))
-    return "finish"
+        predict_label = int(np.argmax(predict_label))
+        print("This image could be " +
+              label2string(predict_label))
 
-
-def make_prediction_BycroppedImg(img):
-    data = np.empty((1, 1, 48, 48), dtype="float32")
-    predict_label = np.empty((1,), dtype="uint8")
-
-    arr = np.asarray(img, dtype="float32")
-    data[0, :, :, :] = arr
-
-    model = Sequential()
-    model = load_model("cnn_kaggle_50.h5")
-
-    predict_label = model.predict(data, batch_size=1, verbose=1)
-    print("**********************************")
-    print("Facial Expression Prediction Start")
-    print("**********************************")
-    print("This image could be " + label2string(int(np.argmax(predict_label))))
-
-    return "finish"
+        return ['Prediction is finish', predict_label]
