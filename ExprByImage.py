@@ -1,9 +1,10 @@
 import FacialDetectionAndCrop
-import Predict
+from Predict import PredictClass
 import sys
 
 imagePath = sys.argv[1]
 
-num = FacialDetectionAndCrop.FaceCrop(imagePath)
-print (num)
-Predict.make_prediction(num)
+num, folderName = FacialDetectionAndCrop.FaceCrop(imagePath)
+print (num, folderName)
+Pred = PredictClass()
+Pred.makePredictionFromFolder(num, folderName)

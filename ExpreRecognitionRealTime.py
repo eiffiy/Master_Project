@@ -5,7 +5,7 @@ import datetime as dt
 from time import sleep
 import PIL
 from PIL import Image
-import Predict
+from Predict import PredictClass
 
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -14,6 +14,8 @@ log.basicConfig(filename='webcam.log', level=log.INFO)
 video_capture = cv2.VideoCapture(0)
 anterior = 0
 timer = 0
+
+Pred = PredictClass()
 
 while True:
 
@@ -34,17 +36,18 @@ while True:
             gray,
             scaleFactor=1.1,
             minNeighbors=5,
-            minSize=(30, 30)
+            minSize=(128, 128)
         )
 
         # Draw a rectangle around the faces
         for (x, y, w, h) in faces:
+            print(w, h)
             img = Image.fromarray(frame)
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             img = img.crop((x, y, x + w, y + h))
             img = img.convert('L')
             img.thumbnail((48, 48))
-            end_label = Predict.make_prediction_BycroppedImg(img)
+            str_label, Pre_lebal = Pred.makePredictionFromCam(img)
 
         if anterior != len(faces):
             anterior = len(faces)

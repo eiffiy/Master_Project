@@ -37,7 +37,7 @@ def FaceCrop(path):
         gray,
         scaleFactor=1.1,
         minNeighbors=5,
-        minSize=(30, 30)
+        minSize=(48, 48)
     )
 
     print("Found {0} faces!".format(len(faces)))

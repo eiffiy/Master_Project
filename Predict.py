@@ -78,16 +78,17 @@ class PredictClass:
         for i in range(num):
             # print every expresion
             predict_label.append(int(np.argmax(predict_result[i])))
-            print(str(i) + " could be " +
+            print('Image ' + str(i) + " could be " +
                   self.label2string(predict_label[i]))
 
         return ['Prediction is finish', predict_label]
 
-    # analyze the expression from the local imgs
-    def makePredictionByName(self, str_name):
+    # analyze the expression from the input path, and img should be cropped
+    # single facial img
+    def makePredictionByName(self, path):
         data = np.empty((1, 1, 48, 48), dtype="float32")
         predict_result = np.empty((1,), dtype="uint8")
-        img = Image.open("./" + str_name, 'r').convert('L')
+        img = Image.open(path, 'r').convert('L')
         img.thumbnail((48, 48))
 
         arr = np.asarray(img, dtype="float32")
@@ -97,13 +98,14 @@ class PredictClass:
         self.StartPrintResult()
 
         predict_label = int(np.argmax(predict_result))
-        print("This image could be " +
-              label2string(predict_label))
+        print("This expression could be " +
+              self.label2string(predict_label))
 
         return ['Prediction is finish', predict_label]
 
-    # the input is PIL.Image object
-    def makePredictionByCroppedImg(self, img):
+    # the input is PIL.Image object, from the web camera, the cropped img
+    # would not be saved
+    def makePredictionFromCam(self, img):
         # init np array
         data = np.empty((1, 1, 48, 48), dtype="float32")
         predict_result = np.empty((1,), dtype="uint8")
@@ -114,8 +116,8 @@ class PredictClass:
         predict_result = self.model.predict(data, batch_size=1, verbose=1)
         self.StartPrintResult()
 
-        predict_label = int(np.argmax(predict_label))
-        print("This image could be " +
-              label2string(predict_label))
+        predict_label = int(np.argmax(predict_result))
+        print("This expression could be " +
+              self.label2string(predict_label))
 
         return ['Prediction is finish', predict_label]
