@@ -13,6 +13,7 @@ anterior = 0
 time_mark = 0
 
 while True:
+    print(time_mark)
     time_mark = time_mark + 1
     if not video_capture.isOpened():
         print('Unable to load camera.')
@@ -22,7 +23,7 @@ while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
 
-    if time_mark % 5 == 0:
+    if time_mark % 1 == 0:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,

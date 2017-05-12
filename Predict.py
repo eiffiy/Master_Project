@@ -117,7 +117,8 @@ class PredictClass:
         self.StartPrintResult()
 
         predict_label = int(np.argmax(predict_result))
+        ExpreLabel = self.label2string(predict_label)
         print("This expression could be " +
               self.label2string(predict_label))
 
-        return ['Prediction is finish', predict_label]
+        return [ExpreLabel, predict_label]
